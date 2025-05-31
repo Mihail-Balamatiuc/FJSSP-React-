@@ -1,0 +1,31 @@
+.navbar {
+  display: flex;
+  list-style: none;
+  background-color: #ffffff;
+  padding: 0.5rem 1rem;
+  margin: 0;
+}
+.navbar li + li {
+  margin-left: 1rem;
+}
+.navbar a {
+  color: gray;
+  text-decoration: none;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+.navbar a:hover,
+.navbar a.active {
+  color: black;
+}
+
+/* Mobile stack links */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+  }
+  .navbar li + li {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+}

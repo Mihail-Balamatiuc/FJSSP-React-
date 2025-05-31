@@ -1,0 +1,18 @@
+.category-div{
+    display: flex;
+    width: 95%;
+    max-width: 600px;
+}
+
+.category {
+    /*Here is the style like in apple.com*/
+    background: linear-gradient(94deg, #0090F7, #BA62FC, #F2416B, #F55600);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    /*Here the apple text ends*/
+    margin-right: auto;
+    /*clamp(min, preffered, max)*/
+    font-size: clamp(1rem, 2vw, 2vw);
+}
