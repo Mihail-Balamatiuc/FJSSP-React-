@@ -9,6 +9,7 @@ export default function Home(){
 
     const [data, setData] = useState<any>(null);                // store fetched data for get request
     const [loading, setLoading] = useState<boolean>(false);
+    const [scriptOutput, setScriptOutput] = useState<string>(' ');
 
     // Runs when the user picks a file fromt the e(event)
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,50 +42,64 @@ export default function Home(){
             formData.append('file', selectedFile);
 
             // Send POST request to the backend with the file
-            const response: AxiosResponse = await axios.post('https://localhost:7179/PythonService/start', formData, {
+            const response: AxiosResponse<string> = await axios.post('https://localhost:7179/PythonService/start', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data', // Tells backend this is form data with a file
                 },
             });
 
-            // Log the response from the backend (e.g., Python script output)
+            // Save the response in scriptOutput
+            setScriptOutput(response.data);
             console.log('Script output:', response.data);
         } catch (error: any) {
             console.error('Error:', error.message);
+            // Reset output on error
+            setScriptOutput('');
         } finally {
             setLoading(false);
         }
     };
 
-    /*############################################################*/
-    /*############# I don't need this part for now ###############*/
-    /*############################################################*/
-
-    const handleStartClick = async () => {
-        setLoading(true);
-        try {
-        // 1. Fetch data
-        const response = await axios.get('https://localhost:7179/weatherforecast');
-        // 2. Save it in state (variable)
-        setData(response.data);
-        // 3. Log it
-        //console.log('Fetched data:', response.data);
-        } catch (err: any) {
-            console.error('Error fetching data:', err.message);
-        } finally {
-            setLoading(false);
-        }
-    };
-    // To print and get the data from handleStartClick
+    // Will run when the scriptOutput changes (it will be set in my case)
     useEffect(() => {
-        if (data) {
-            console.log('Updated data:', data);
+        if(scriptOutput){
+            console.log('Script output was updated');
+            console.log(scriptOutput);
         }
-    }, [data]); // Runs when `data` changes
+    }, [scriptOutput]);
 
-    /*############################################################*/
-    /*############# I don't need this part for now ###############*/
-    /*############################################################*/
+    const logOutput = () => {
+        console.log(scriptOutput);
+    };
+
+    // Will download the schedule file
+    const downloadSchedule = async () => {
+        try {
+            // I can request like this in a simple way but it wouldn't log errors in case the server is down
+            //
+            //const timestamp = new Date().getTime();
+            //window.location.href = `https://localhost:7179/PythonService/getSchedule?t=${timestamp}`;
+
+            const timestamp = new Date().getTime();
+            const response = await axios.get(`https://localhost:7179/PythonService/getSchedule?t=${timestamp}`, {
+                responseType: 'blob'
+            });
+
+            // Create downloadable file from response
+            const blob = new Blob([response.data], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'schedule.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+
+        } catch (error: any) {
+            console.error('Error downloading schedule:', error.message);
+        }
+    };
 
     return (
         <>
@@ -115,6 +130,10 @@ export default function Home(){
                     {loading ? 'Wait...' : 'Start'}
                 </button>
             </div>
+
+            <button className='download-button' onClick={downloadSchedule}>
+                Download
+            </button>
         </>
     );
 }
