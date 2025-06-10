@@ -117,16 +117,16 @@
     height: 7vh;
     width: 10%;
     min-width: 120px;
-    color: white;              
+    color: white;
     font-size: 1.3rem;           
     font-weight: 500;
-    border-radius: 980px;        
-    cursor: pointer;           
-    user-select: none;         
+    border-radius: 980px;
+    cursor: pointer;
+    user-select: none;
     transition: background-color 0.2s ease;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 50px;
+    margin-top: 1.5rem;
 }
 
 .download-button:hover {
@@ -135,4 +135,65 @@
 
 .download-button:active {
     background-image: linear-gradient(94deg, #502a6d, #762135);
+}
+
+
+/* Check-boxes */
+.checkbox-container {
+    margin-top: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 40%;
+    min-width: 27rem;
+    max-width: 800px;
+}
+
+/* Style each checkbox item as a standalone element */
+.checkbox-item {
+    position: relative;
+}
+
+/* Hide the actual checkbox but keep it accessible */
+.custom-checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkbox-item label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 36px;
+    border-radius: 980px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    
+    color: #BA62FC;
+    background: white;
+    background-clip: padding-box;
+    position: relative;
+}
+
+/* Fill with gradient when checked */
+.custom-checkbox:checked + label {
+    background: linear-gradient(94deg, #b962fc80, #f2416a7d);
+    color: white;
+    border: none;
+}
+
+/* Add hover effect */
+.checkbox-item label:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 5px rgba(0,0,0,0.1);
 }

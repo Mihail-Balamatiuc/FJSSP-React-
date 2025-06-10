@@ -60,7 +60,7 @@ export default function Config(){
 
         setSaveLoading(true);
         try{
-            const response: AxiosResponse<string> = await axios.post('https://localhost:7179/pythonService/saveConfig',
+            const response: AxiosResponse<string> = await axios.put('https://localhost:7179/pythonService/saveConfig',
                 // Send updatedConfig to the backend since the setConfigData is async and can be unupdated yet
                 JSON.stringify(updatedConfig, null, 2), // this will make the sent json look in a pretty json fromat and not one line
             { headers: { 'Content-Type': 'application/json' } }

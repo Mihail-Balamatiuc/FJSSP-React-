@@ -1,17 +1,97 @@
 import './home.css'
 import { useEffect, useState } from 'react';
 import axios, { type AxiosResponse } from 'axios';
+import { Algorithm } from '../../interfaces/Algorithm';
 
 export default function Home(){
 
     // State to store the selected file (initially null, will hold a File object)
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-    const [data, setData] = useState<any>(null);                // store fetched data for get request
     const [loading, setLoading] = useState<boolean>(false);
     const [scriptOutput, setScriptOutput] = useState<string>(' ');
+    const [algorithmDataLoaded, setAlgorithmDataLoaded] = useState(false);
+    const [algorithms, setAlgorithms] = useState<Algorithm[]>([
+            { name: 'SPT', enabled: false },
+            { name: 'LPT', enabled: false },
+            { name: 'MWR', enabled: false },
+            { name: 'LWR', enabled: false },
+            { name: 'SA', enabled: false },
+            { name: 'HC', enabled: false },
+            { name: 'TS', enabled: false },
+            { name: 'GA', enabled: false },
+            { name: 'ILS', enabled: false }
+    ])
 
-    // Runs when the user picks a file fromt the e(event)
+    // Get the algorithms when the page is loading
+    useEffect(() => {
+        // Declaring an async function bc useEffect can't be async
+        const fetchAlgorithms = async () => {
+            try {
+                const response = await axios.get('https://localhost:7179/pythonService/getScheduleAlgorithms');
+                const enabledAlgoNames: string = response.data;
+                //console.log(enabledAlgoNames);
+                
+                // Update algorithms state based on response
+                setAlgorithms(algorithms => 
+                    algorithms.map(algo => ({
+                        ...algo,
+                        enabled: enabledAlgoNames.includes(algo.name)
+                    }))
+                );
+
+                // Mark the data as loaded
+                setAlgorithmDataLoaded(true);
+            } catch (err: any) {
+                console.error('Error fetching data:', err.message);
+            }
+        };
+        
+        // Execute it
+        fetchAlgorithms();
+    }, []); // [] executes only first time when the page is loading
+
+    // Will save the changes whenever the algorithms change
+    useEffect(() => {
+        // Only save if the algorithm data is loaded already to prevent
+        // saving empty algorithm data
+        if(!algorithmDataLoaded) return;
+
+        const saveAlgorithms = async () => {
+            try {
+                // Get just the names of enabled algorithms
+                const enabledAlgorithms = algorithms
+                    .filter(algo => algo.enabled)
+                    .map(algo => algo.name)
+                
+                const response: AxiosResponse<string> = await axios.put(
+                    'https://localhost:7179/pythonService/saveScheduleAlgorithms', 
+                    enabledAlgorithms,
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+                
+                console.log(response.data);
+            } catch (err: any) {
+                console.error('Error saving the algorithms:', err.message);
+            }
+        };
+        
+        saveAlgorithms();
+    }, [algorithms]);
+
+    // This function handles checkbox toggling
+    const handleAlgorithmToggle = (name: string) => {
+        setAlgorithms(algorithms => 
+            algorithms.map(algo => 
+                algo.name === name ? { ...algo, enabled: !algo.enabled } : algo
+            )
+        );
+    };
+
+    // Runs when the user picks a file fromt the e(event), event is passed automatically by react
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]; // Get the first file from the input, which is our file
         if (file) {
@@ -25,7 +105,6 @@ export default function Home(){
         }
     };
 
-    
     // Here is the code for sending the request to run python file
     const runPython = async () => {
         if (!selectedFile) {
@@ -42,7 +121,7 @@ export default function Home(){
             formData.append('file', selectedFile);
 
             // Send POST request to the backend with the file
-            const response: AxiosResponse<string> = await axios.post('https://localhost:7179/PythonService/start', formData, {
+            const response: AxiosResponse<string> = await axios.put('https://localhost:7179/PythonService/start', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data', // Tells backend this is form data with a file
                 },
@@ -67,10 +146,6 @@ export default function Home(){
             console.log(scriptOutput);
         }
     }, [scriptOutput]);
-
-    const logOutput = () => {
-        console.log(scriptOutput);
-    };
 
     // Will download the schedule file
     const downloadSchedule = async () => {
@@ -129,6 +204,21 @@ export default function Home(){
                 <button className='start-button' onClick={runPython} disabled={!selectedFile || loading}>
                     {loading ? 'Wait...' : 'Start'}
                 </button>
+            </div>
+
+            <div className='checkbox-container'>
+                {algorithms.map(algorithm => (
+                    <div className='checkbox-item' key={algorithm.name}>
+                        <input
+                            type="checkbox"
+                            id={algorithm.name}
+                            className="custom-checkbox"
+                            checked={algorithm.enabled}
+                            onChange={() => handleAlgorithmToggle(algorithm.name)}
+                        />
+                        <label htmlFor={algorithm.name}>{algorithm.name}</label>
+                    </div>
+                ))}
             </div>
 
             <button className='download-button' onClick={downloadSchedule}>
