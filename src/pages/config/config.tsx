@@ -29,9 +29,9 @@ export default function Config(){
     }, []); // [] executes only first time when the page is loading
                 
     // Will console.log the data once it's loaded
-    useEffect(() => {
-        console.log(configData);
-    }, [configData]);
+    // useEffect(() => {
+    //     console.log(configData);
+    // }, [configData]);
 
     // This updates the config based on the input
     const updateConfigValue = (section: keyof PythonConfig, field: string, value: string) => {

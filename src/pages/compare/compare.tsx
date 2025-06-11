@@ -144,11 +144,55 @@ export default function Compare(){
     }, [scriptOutput]);
 
     // Will download the schedule file
-    const downloadSchedule = async () => {
+    const downloadPerformanceImages = async () => {
+        // Get enabled algorithms
+        const enabledAlgorithms = algorithms.filter(algo => algo.enabled);
+        
+        if (enabledAlgorithms.length === 0) {
+            console.error('No algorithms selected for download');
+            return;
+        }
+        
         try {
-            console.log("Not functional yet!");
+            // Set loading state to disable button
+            setLoading(true);
+            
+            // Download each chart sequentially
+            for (const algo of enabledAlgorithms) {
+                try {
+                    // Request the image as a blob
+                    const response = await axios.get(`https://localhost:7179/pythonService/charts/${algo.name}`, {
+                        responseType: 'blob'
+                    });
+                    
+                    // Create a blob URL
+                    const blob = new Blob([response.data], {
+                        type: response.headers['content-type'] || 'image/png'
+                    });
+                    const url = window.URL.createObjectURL(blob);
+                    
+                    // Create the download link
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `${algo.name}_performance.png`;
+                    
+                    // Trigger download
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    // Clean the blob url
+                    window.URL.revokeObjectURL(url);
+                    
+                } catch (err: any) {
+                    console.error(`Failed to download ${algo.name} chart:`, err.message);
+                }
+            }
+            
         } catch (error: any) {
-            console.error('Error downloading schedule:', error.message);
+            console.error('Error downloading performance charts:', error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -197,8 +241,8 @@ export default function Compare(){
                 ))}
             </div>
 
-            <button className='download-button' onClick={downloadSchedule}>
-                Download
+            <button className='download-button' disabled={loading} onClick={downloadPerformanceImages}>
+                {loading ? "Loading" : "Download"}
             </button>
         </>
     );

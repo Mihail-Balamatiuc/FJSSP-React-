@@ -153,10 +153,9 @@ export default function Home(){
             // I can request like this in a simple way but it wouldn't log errors in case the server is down
             //
             //const timestamp = new Date().getTime();
-            //window.location.href = `https://localhost:7179/PythonService/getSchedule?t=${timestamp}`;
+            //window.location.href = `https://localhost:7179/PythonService/getSchedule`;
 
-            const timestamp = new Date().getTime();
-            const response = await axios.get(`https://localhost:7179/PythonService/getSchedule?t=${timestamp}`, {
+            const response = await axios.get(`https://localhost:7179/PythonService/getSchedule`, {
                 responseType: 'blob'
             });
 
@@ -221,8 +220,8 @@ export default function Home(){
                 ))}
             </div>
 
-            <button className='download-button' onClick={downloadSchedule}>
-                Download
+            <button className='download-button' disabled={loading} onClick={downloadSchedule}>
+                {loading ? "Loading" : "Download"}
             </button>
         </>
     );
