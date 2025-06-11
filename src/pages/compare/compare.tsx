@@ -17,6 +17,8 @@ export default function Compare(){
             { name: 'GA', enabled: false },
             { name: 'ILS', enabled: false }
     ])
+    const [optimalValue, setOptimalValue] = useState<number>(1);
+    const [numRuns, setNumRuns] = useState<number>(1);
 
     // Get the algorithms when the page is loading
     useEffect(() => {
@@ -196,6 +198,35 @@ export default function Compare(){
         }
     };
 
+    const saveCompareSettings = async () => {
+        try {
+            setLoading(true);
+            
+            // Ensure they are at least 1 and not NaN
+            const goodOptimalValue = (!optimalValue || isNaN(optimalValue) || optimalValue < 1) ? 1 : optimalValue;
+            const goodNumRuns = (!numRuns || isNaN(numRuns) || numRuns < 1) ? 1 : numRuns;
+            
+            // Create settings object with good values
+            const settings = [goodNumRuns, goodOptimalValue];
+            
+            const response = await axios.put(
+                'https://localhost:7179/pythonService/saveCompareSettings', 
+                settings,
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+            
+            console.log('Settings saved:', response.data);
+        } catch (err: any) {
+            console.error('Error saving settings:', err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <>
             <div className='title-container'>
@@ -224,6 +255,39 @@ export default function Compare(){
                 <button className='start-button' onClick={runPython} disabled={!selectedFile || loading}>
                     {loading ? 'Wait...' : 'Start'}
                 </button>
+            </div>
+
+            <div className='number-inputs-container'>
+                <div className='number-input-group'>
+                    <input
+                        id="num-runs"
+                        type="number"
+                        min="1"
+                        onChange={(e) => setNumRuns(parseInt(e.target.value))}
+                        className="number-input"
+                        placeholder='Number of runs'
+                        disabled={loading}
+                    />
+                </div>
+
+                <button 
+                    className='save-settings-button' 
+                    onClick={saveCompareSettings}
+                    disabled={loading}>
+                    Save
+                </button>
+                
+                <div className='number-input-group'>
+                    <input
+                        id="optimal-value"
+                        type="number"
+                        min="1"
+                        onChange={(e) => setOptimalValue(parseInt(e.target.value))}
+                        className="number-input"
+                        placeholder='Optimal value'
+                        disabled={loading}
+                    />
+                </div>
             </div>
 
             <div className='checkbox-container'>

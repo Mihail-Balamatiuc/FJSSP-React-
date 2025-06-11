@@ -197,3 +197,92 @@
     transform: translateY(-1px);
     box-shadow: 0 3px 5px rgba(0,0,0,0.1);
 }
+
+/* Number inputs styling */
+.number-inputs-container {
+    display: flex;
+    justify-content: center;
+    gap: 0px;
+    width: 50%;
+    min-width: 27rem;
+    margin: 1rem auto 0 auto;
+}
+
+.number-input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 35%;
+    min-width: 120px;
+}
+
+.number-input {
+    background-color: white;
+    border-radius: 980px;
+    width: 100%;
+    height: 4vh;
+    min-height: 40px;
+    padding: 0 15px;
+    border: none;
+    font-size: 1rem;
+    color: #333;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.number-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(186, 98, 252, 0.5);
+}
+
+/* Hide spinner buttons for number inputs */
+.number-input::-webkit-inner-spin-button, 
+.number-input::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.save-settings-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(94deg, #0090f76f, #b962fc77);
+    height: 4vh;
+    min-height: 40px;
+    width: 80px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 980px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+    margin: 0 10px;
+}
+
+.save-settings-button:hover {
+    background-image: linear-gradient(94deg, #0090F7, #BA62FC);
+}
+
+.save-settings-button:active {
+    background-image: linear-gradient(94deg, #0057a1, #703392);
+}
+
+/* Update responsive styles for the container */
+@media (max-width: 768px) {
+    .number-inputs-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .number-input-group {
+        width: 70%;
+    }
+    
+    .save-settings-button {
+        margin: 10px 0;
+        width: 70%;
+        min-width: 120px;
+    }
+}
