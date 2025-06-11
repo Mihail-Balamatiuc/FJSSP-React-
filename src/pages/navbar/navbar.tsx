@@ -7,6 +7,7 @@ export default function Navbar() {
     <nav aria-label="Main navigation">
       <ul className="navbar">
         <li><NavLink to="/" end>Schedule</NavLink></li>
+        <li><NavLink to="/compare">Compare</NavLink></li>
         <li><NavLink to="/config">Config</NavLink></li>
         <li><NavLink to="/about">About</NavLink></li>
       </ul>

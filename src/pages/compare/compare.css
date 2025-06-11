@@ -1,0 +1,199 @@
+.title-container {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    height: 70%;
+}
+
+.title {
+    /*Here is the style like in apple.com*/
+    background: linear-gradient(94deg, #0090F7, #BA62FC, #F2416B, #F55600);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    /*Here the apple text ends*/
+    margin: auto;
+    /*clamp(min, preffered, max)*/
+    font-size: clamp(3.5rem, 7vw, 7vw);
+    text-align: center;
+}
+
+/* Container & layout */
+.file-input-wrapper {
+    margin-top: 1.5rem;       
+    display: flex;            
+    align-items: center;      
+    height: 7vh;
+    width: 50%;
+    min-width: 27rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-wrapper{
+    background-color: white;
+    border-radius: 980px;
+    width: 70%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 7px;
+    margin-left: auto;
+}
+
+/* Hide the native input accessibly */
+.file-input-native {
+    position: absolute;       /* take it out of normal flow */
+    width: 1px; height: 1px;  /* shrink it to near zero */
+    padding: 0; margin: -1px; /* remove any default padding/margin */
+    overflow: hidden;         /* clip contents */
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+/* Style the label as a button */
+.file-input-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(94deg, #0090f76f, #b962fc77);
+    height: 100%;
+    width: 20%;
+    min-width: 4rem;
+    color: white;              
+    font-size: 1rem;           
+    font-weight: 500;
+    border-radius: 980px;        
+    cursor: pointer;           
+    user-select: none;         
+    transition: background-color 0.2s ease;
+}
+
+.file-input-button:hover {
+    background-image: linear-gradient(94deg, #0090F7, #BA62FC);
+}
+
+/* Filename text styling */
+.file-input-filename {
+    margin-left: 10px;
+    font-size: 1rem;
+    color: #333;
+    font-style: italic;
+}
+
+.start-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(94deg, #f2416ac0, #f55600c5);
+    height: 100%;
+    width: 20%;
+    min-width: 4rem;
+    color: white;              
+    font-size: 1.3rem;           
+    font-weight: 500;
+    border-radius: 980px;        
+    cursor: pointer;           
+    user-select: none;         
+    transition: background-color 0.2s ease;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.start-button:hover {
+    background-image: linear-gradient(94deg, #F2416B, #F55600);
+}
+
+.start-button:active {
+    background-image: linear-gradient(94deg, #6b1e30, #87401a);
+}
+
+.download-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(94deg, #b962fcc9, #f2416ac6);
+    height: 7vh;
+    width: 10%;
+    min-width: 120px;
+    color: white;
+    font-size: 1.3rem;           
+    font-weight: 500;
+    border-radius: 980px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1.5rem;
+}
+
+.download-button:hover {
+    background-image: linear-gradient(94deg, #b962fc, #f2416a);
+}
+
+.download-button:active {
+    background-image: linear-gradient(94deg, #502a6d, #762135);
+}
+
+
+/* Check-boxes */
+.checkbox-container {
+    margin-top: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 40%;
+    min-width: 27rem;
+    max-width: 800px;
+}
+
+/* Style each checkbox item as a standalone element */
+.checkbox-item {
+    position: relative;
+}
+
+/* Hide the actual checkbox but keep it accessible */
+.custom-checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkbox-item label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 36px;
+    border-radius: 980px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    
+    color: #BA62FC;
+    background: white;
+    background-clip: padding-box;
+    position: relative;
+}
+
+/* Fill with gradient when checked */
+.custom-checkbox:checked + label {
+    background: linear-gradient(94deg, #b962fc80, #f2416a7d);
+    color: white;
+    border: none;
+}
+
+/* Add hover effect */
+.checkbox-item label:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+}
