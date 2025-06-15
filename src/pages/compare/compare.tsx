@@ -230,7 +230,7 @@ export default function Compare(){
     return (
         <>
             <div className='title-container'>
-                <h1 className="title">Compare Performance</h1>
+                <h1 className="title">Performance Analysis</h1>
             </div>
 
             <div className='file-input-wrapper'>
