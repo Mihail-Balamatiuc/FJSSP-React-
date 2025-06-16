@@ -64,17 +64,12 @@ A React-based web application for solving Flexible Job Shop Scheduling Problems 
 Here are some screenshots of the application:
 
 ![Scheduling Page](./readme_images/Schedule_page.png)
-*Home page with scheduling options*
 
 ![Gantt Chart](./readme_images/Gantt_chart.png)
-*Algorithm configuration settings*
 
 ![Analysis Performance Page](./readme_images/Performance_page.png)
-*Performance comparison interface*
 
 ![Performance Chart](./readme_images/TS_performance.png)
-*Algorithm configuration settings*
 
 ![Configuration Page](./readme_images/Config_page.png)
-*Algorithm configuration settings*
 
