@@ -48,7 +48,7 @@ A React-based web application for solving Flexible Job Shop Scheduling Problems 
 - Get generated Gantt Charts
 - Download generated schedules
 
-### Compare Page
+### Analysis Page
 - Upload a .txt file with FJSSP data
 - Set the number of runs and optimal value
 - Select algorithms to analyse
@@ -69,7 +69,7 @@ Here are some screenshots of the application:
 ![Gantt Chart](./readme_images/Gantt_chart.png)
 *Algorithm configuration settings*
 
-![Analyse Performance Page](./readme_images/Performance_page.png)
+![Analysis Performance Page](./readme_images/Performance_page.png)
 *Performance comparison interface*
 
 ![Performance Chart](./readme_images/TS_performance.png)
