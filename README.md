@@ -1,54 +1,80 @@
-# React + TypeScript + Vite
+# FJSSP Scheduling Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based web application for solving Flexible Job Shop Scheduling Problems (FJSSP). This application provides an interface to upload job scheduling data, visualize and download results, run various optimization algorithms, analyse algorithm performance, and configure algorithm parameters.
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js (v20.18.0 or later)
+- npm (v11.3.0 or later)
+- .NET Core backend running on https://localhost:7179 (separate project) can be found here [https://github.com/Mihail-Balamatiuc/FJSSP-.NET-](https://github.com/Mihail-Balamatiuc/FJSSP-.NET-)
 
-## Expanding the ESLint configuration
+## Dependencies
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React 19
+- TypeScript 5.8
+- Vite 6.3
+- Axios for API requests
+- React Router for navigation
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Installation
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Clone the repository:
+   ```
+   git clone <repository-url>
+   cd FJSSP_React
+   ```
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+2. Install dependencies:
+   ```
+   npm install
+   ```
+
+## Running the Application
+
+1. Make sure the .NET Core backend is running at https://localhost:7179
+
+2. Start the development server:
+   ```
+   npm run dev
+   ```
+
+## Usage Guide
+
+### Home Page
+- Upload a .txt file with FJSSP data
+- Select desired algorithms to run
+- Click "Start" to process the file
+- Get generated Gantt Charts
+- Download generated schedules
+
+### Compare Page
+- Upload a .txt file with FJSSP data
+- Set the number of runs and optimal value
+- Select algorithms to analyse
+- Click "Start" to run the comparison
+- Download performance charts
+
+### Config Page
+- Adjust parameters for each algorithm
+- Save configurations to be used in future scheduling runs
+
+## Screenshots
+
+Here are some screenshots of the application:
+
+![Scheduling Page](./readme_images/Schedule_page.png)
+*Home page with scheduling options*
+
+![Gantt Chart](./readme_images/Gantt_chart.png)
+*Algorithm configuration settings*
+
+![Analyse Performance Page](./readme_images/Performance_page.png)
+*Performance comparison interface*
+
+![Performance Chart](./readme_images/TS_performance.png)
+*Algorithm configuration settings*
+
+![Configuration Page](./readme_images/Config_page.png)
+*Algorithm configuration settings*
+
