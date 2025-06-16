@@ -22,7 +22,6 @@ export default function Compare(){
 
     // Get the algorithms when the page is loading
     useEffect(() => {
-        // Declaring an async function bc useEffect can't be async
         const fetchAlgorithms = async () => {
             try {
                 const response = await axios.get('https://localhost:7179/pythonService/getCompareAlgorithms');
@@ -125,12 +124,10 @@ export default function Compare(){
                 },
             });
 
-            // Save the response in scriptOutput
             setScriptOutput(response.data);
             console.log('Script output:', response.data);
         } catch (error: any) {
             console.error('Error:', error.message);
-            // Reset output on error
             setScriptOutput('');
         } finally {
             setLoading(false);
@@ -235,21 +232,18 @@ export default function Compare(){
 
             <div className='file-input-wrapper'>
                 <div className='input-wrapper'>
-                    {/* The real file input, kept in the DOM for accessibility */}
                     <input
                         id="file-upload"
                         type="file"
-                        accept='.txt' // Suggests only .txt files, though not enforced
+                        accept='.txt'
                         className="file-input-native"
                         onChange={handleFileChange}
                     />
 
-                    {/* A <label> tied to the input */}
                     <label htmlFor="file-upload" className="file-input-button">
                         <p>Choose</p>
                     </label>
                     
-                    {/* Show the chosen file’s name from state */}
                     <span className="file-input-filename">{selectedFile ? selectedFile.name : 'No file selected'}</span>
                 </div>
                 <button className='start-button' onClick={runPython} disabled={!selectedFile || loading}>

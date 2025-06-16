@@ -55,7 +55,6 @@ export default function Config(){
             value === null ? 0 : value
         ));
         
-        // Update the state
         setConfigData(updatedConfig);
 
         setSaveLoading(true);

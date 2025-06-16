@@ -44,10 +44,10 @@
 
 /* Hide the native input accessibly */
 .file-input-native {
-    position: absolute;       /* take it out of normal flow */
-    width: 1px; height: 1px;  /* shrink it to near zero */
-    padding: 0; margin: -1px; /* remove any default padding/margin */
-    overflow: hidden;         /* clip contents */
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
     clip: rect(0,0,0,0);
     border: 0;
 }
@@ -153,7 +153,6 @@
     max-width: 800px;
 }
 
-/* Style each checkbox item as a standalone element */
 .checkbox-item {
     position: relative;
 }
@@ -192,7 +191,6 @@
     border: none;
 }
 
-/* Add hover effect */
 .checkbox-item label:hover {
     transform: translateY(-1px);
     box-shadow: 0 3px 5px rgba(0,0,0,0.1);
