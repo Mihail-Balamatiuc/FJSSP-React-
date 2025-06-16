@@ -6,7 +6,7 @@ A React-based web application for solving Flexible Job Shop Scheduling Problems 
 
 - Node.js (v20.18.0 or later)
 - npm (v11.3.0 or later)
-- .NET Core backend running on https://localhost:7179 (separate project) can be found here [https://github.com/Mihail-Balamatiuc/FJSSP-.NET-](https://github.com/Mihail-Balamatiuc/FJSSP-.NET-)
+- .NET Core backend running on https://localhost:7179 (separate project)
 
 ## Dependencies
 
